@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doss Does English</title>
+  
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-body: #FAFAFA;
+      --text-dark: #111111;
+      --text-grey: #666666;
+      
+      --card-bg: #FFFFFF;
+      --card-border: #E5E5E5;
+      
+      /* --- RICH PURPLE PALETTE (Home Page) --- */
+      --purple-deep: #7C3AED;   /* Deep Rich Violet/Purple */
+      --purple-glow: #8B5CF6;   /* Brighter Violet for the glow */
+      --purple-pale: #F5F3FF;   /* Pale background for badges */
+      
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-dark);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    nav {
+      padding: 25px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 1.3rem;
+      letter-spacing: -0.5px;
+      color: var(--text-dark);
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-grey);
+      margin-left: 30px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--purple-deep); }
+    
+    .menu-icon { display: none; cursor: pointer; color: var(--text-dark); }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .menu-icon { display: block; }
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 80px 20px 60px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .badge {
+      display: inline-block;
+      background-color: var(--purple-pale);
+      color: var(--purple-deep);
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-bottom: 25px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      line-height: 1.1;
+      font-weight: 800;
+      margin: 0 0 20px 0;
+      color: var(--text-dark);
+      letter-spacing: -1.5px;
+    }
+
+    .hero p {
+      color: var(--text-grey);
+      font-size: 1.1rem;
+      max-width: 500px;
+      margin: 0 auto 40px auto;
+      line-height: 1.6;
+    }
+
+    .cta-button {
+      background: var(--text-dark);
+      color: white;
+      padding: 15px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      transition: transform 0.2s, background-color 0.3s;
+    }
+    .cta-button:hover {
+      transform: translateY(-2px);
+      background-color: var(--purple-deep);
+    }
+    .cta-button i { margin-left: 10px; font-size: 1.1rem; }
+
+    /* --- CARD GRID --- */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      max-width: 1200px;
+      margin: 20px auto 80px auto;
+      padding: 0 20px;
+    }
+
+    .be-card {
+      background-color: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 35px;
+      position: relative;
+      cursor: pointer;
+      border: 1px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      height: 300px;
+      justify-content: space-between;
+      overflow: hidden; 
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      z-index: 1;
+    }
+
+    /* --- HIGH INTENSITY PURPLE GLOW --- */
+    .be-card::before {
+      content: '';
+      position: absolute;
+      bottom: -40px;
+      left: -20px;
+      right: -20px;
+      height: 250px;
+      background: radial-gradient(circle at center bottom, rgba(139, 92, 246, 0.5) 0%, rgba(139, 92, 246, 0.1) 50%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* Hover States */
+    .be-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(124, 58, 237, 0.3);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    }
+
+    .be-card:hover::before {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    /* Icon Box Animation */
+    .icon-box {
+      width: 55px; height: 55px;
+      background-color: #F3F4F6;
+      border-radius: 18px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+      transition: all 0.3s ease;
+    }
+    .icon-box i { font-size: 26px; }
+
+    .be-card:hover .icon-box {
+      background-color: var(--purple-deep);
+      color: white;
+      transform: scale(1.1);
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin: 0 0 10px 0;
+      letter-spacing: -0.5px;
+      color: var(--text-dark);
+    }
+
+    .card-desc {
+      color: var(--text-grey);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* The "View" Arrow */
+    .card-arrow {
+      position: absolute;
+      top: 35px;
+      right: 35px;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: all 0.3s ease;
+      color: var(--purple-deep);
+    }
+    .be-card:hover .card-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-grey);
+      font-size: 0.9rem;
+      border-top: 1px solid #E5E5E5;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 2.5rem; }
+      .be-card { height: auto; min-height: 250px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="brand">Doss Does English</div>
+    <div class="nav-links">
+      <a href="tests.html">Tests</a>
+      <a href="materials.html">Materials</a>
+      <a href="videos.html">Videos</a>
+    </div>
+    <div class="menu-icon">
+      <i class="material-icons">menu</i>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="badge">For Classes 8, 9 & 10</div>
+    
+    <h1>Master English with<br>Confidence & Clarity.</h1>
+    
+    <p>The ultimate resource for High School students. Precision grammar, comprehensive vocabulary, and exam readiness tools.</p>
+    
+    <a href="tests.html" class="cta-button">
+      Start Assessment <i class="material-icons">arrow_forward</i>
+    </a>
+  </div>
+
+  <div class="grid-container">
+    
+    <div class="be-card" onclick="location.href='word-day.html'">
+      <i class="material-icons card-arrow">arrow_forward</i>
+      <div class="icon-box">
+        <i class="material-icons">spellcheck</i>
+      </div>
+      <div>
+        <h3 class="card-title">Word of the Day</h3>
+        <p class="card-desc">Expand your lexicon daily with curated words, synonyms, and pronunciation guides.</p>
+      </div>
+    </div>
+
+    <div class="be-card" onclick="location.href='materials.html'">
+      <i class="material-icons card-arrow">arrow_forward</i>
+      <div class="icon-box">
+        <i class="material-icons">auto_stories</i>
+      </div>
+      <div>
+        <h3 class="card-title">Study Materials</h3>
+        <p class="card-desc">Access comprehensive notes, prose summaries, and question banks.</p>
+      </div>
+    </div>
+
+    <div class="be-card" onclick="location.href='tests.html'">
+      <i class="material-icons card-arrow">arrow_forward</i>
+      <div class="icon-box">
+        <i class="material-icons">assignment_turned_in</i>
+      </div>
+      <div>
+        <h3 class="card-title">Test Series</h3>
+        <p class="card-desc">Practice online tests for Class 8, 9, and 10 with instant results and feedback.</p>
+      </div>
+    </div>
+
+    <div class="be-card" onclick="location.href='videos.html'">
+      <i class="material-icons card-arrow">arrow_forward</i>
+      <div class="icon-box">
+        <i class="material-icons">play_circle_filled</i>
+      </div>
+      <div>
+        <h3 class="card-title">Video Lessons</h3>
+        <p class="card-desc">Visual explanations for complex grammar topics to help you understand better.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    © 2026 Doss Does English. Designed for Excellence.
+  </footer>
+
+</body>
+</html>

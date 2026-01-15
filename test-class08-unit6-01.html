@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class 8 - Unit 6 Test 01 - Doss Does English</title>
+  
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-body: #FAFAFA;
+      --text-dark: #111111;
+      --text-grey: #666666;
+      --card-bg: #FFFFFF;
+      --card-border: #E5E5E5;
+      --theme-deep: #EA580C;
+      --theme-glow: #F97316;
+      --theme-pale: #FFF7ED;
+      --success: #059669;
+      --error: #DC2626;
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+
+    /* CSS COUNTER FOR DYNAMIC NUMBERING */
+    body {
+      font-family: 'Manrope', sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-dark);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      counter-reset: q-counter; 
+    }
+
+    .q-text::before {
+      counter-increment: q-counter;
+      content: counter(q-counter) ". ";
+      color: var(--theme-deep);
+      font-weight: 800;
+    }
+
+    nav {
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      border-bottom: 1px solid var(--card-border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .brand-link { text-decoration: none; font-weight: 800; font-size: 1.3rem; color: var(--text-dark); transition: color 0.3s; }
+    .brand-link:hover { color: var(--theme-deep); }
+    .nav-right { display: flex; align-items: center; gap: 20px; }
+    .class-link { text-decoration: none; font-weight: 700; color: var(--theme-deep); font-size: 1.1rem; padding: 8px 16px; background: var(--theme-pale); border-radius: 50px; transition: all 0.3s; }
+    .class-link:hover { background: var(--theme-deep); color: white; }
+
+    .container { max-width: 800px; margin: 40px auto 80px auto; padding: 0 20px; }
+
+    .test-header { text-align: center; margin-bottom: 40px; }
+    .unit-badge { display: inline-block; background-color: var(--theme-pale); color: var(--theme-deep); padding: 6px 14px; border-radius: 50px; font-weight: 700; font-size: 0.8rem; margin-bottom: 15px; letter-spacing: 0.5px; }
+    .test-header h1 { font-size: 2.2rem; font-weight: 800; margin: 0 0 10px 0; color: var(--text-dark); }
+    .test-header p { color: var(--text-grey); margin: 0; }
+
+    .lesson-image-container {
+      margin: 30px auto 10px auto;
+      max-width: 100%;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 15px 30px -10px rgba(234, 88, 12, 0.2);
+      border: 1px solid var(--card-border);
+    }
+    .lesson-image { width: 100%; height: auto; display: block; object-fit: cover; max-height: 300px; }
+
+    .card-box { background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--card-border); padding: 30px; margin-bottom: 30px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); }
+    .section-title { font-size: 1.1rem; font-weight: 700; color: var(--theme-deep); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid var(--theme-pale); padding-bottom: 10px; }
+
+    .input-group { margin-bottom: 20px; }
+    .input-label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.95rem; }
+    .input-box, select { width: 100%; padding: 12px 15px; border: 2px solid #E5E5E5; border-radius: 12px; font-family: 'Manrope', sans-serif; font-size: 1rem; transition: border-color 0.3s; background: #fff; }
+    .input-box:focus, select:focus { outline: none; border-color: var(--theme-deep); background: var(--theme-pale); }
+    ::placeholder { color: #BBB; opacity: 1; }
+    .custom-input { display: none; margin-top: 10px; border-color: var(--theme-deep); background: var(--theme-pale); }
+
+    .q-item { margin-bottom: 25px; padding-bottom: 25px; border-bottom: 1px dashed #eee; }
+    .q-item:last-child { border-bottom: none; }
+    .q-text { font-weight: 700; font-size: 1.05rem; margin-bottom: 12px; line-height: 1.5; }
+
+    .options-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
+    .radio-label { display: block; padding: 12px 15px; background: #F9FAFB; border: 1px solid #E5E5E5; border-radius: 12px; cursor: pointer; font-size: 0.95rem; font-weight: 500; transition: all 0.2s; text-align: center; }
+    .radio-label:hover { border-color: var(--theme-deep); }
+    input[type="radio"] { display: none; }
+    input[type="radio"]:checked + .radio-label { background-color: var(--theme-deep); color: white; border-color: var(--theme-deep); }
+
+    .submit-btn { display: block; width: 100%; padding: 18px; background: var(--text-dark); color: white; border: none; border-radius: 50px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: transform 0.2s, background 0.3s; margin-top: 20px; }
+    .submit-btn:hover { transform: translateY(-3px); background: var(--theme-deep); }
+
+    #result-view { display: none; }
+    .score-card { background: var(--theme-deep); color: white; text-align: center; padding: 40px; border-radius: var(--radius); margin-bottom: 30px; }
+    .score-big { font-size: 4rem; font-weight: 800; line-height: 1; }
+    .score-label { font-size: 1.1rem; opacity: 0.9; }
+    .review-item { background: white; padding: 20px; border-radius: 16px; margin-bottom: 15px; border: 1px solid #eee; overflow: hidden; }
+    .review-item.correct { border-left: 6px solid var(--success); }
+    .review-item.wrong { border-left: 6px solid var(--error); }
+    .status-badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; margin-bottom: 8px; }
+    .status-badge.correct { background: #D1FAE5; color: var(--success); }
+    .status-badge.wrong { background: #FEE2E2; color: var(--error); }
+    .user-ans { font-weight: 600; display: block; margin-top: 5px; color: var(--text-grey); }
+    .corr-ans { font-weight: 700; display: block; margin-top: 5px; color: var(--success); }
+    .loading { display: none; text-align: center; padding: 20px; font-weight: 600; color: var(--theme-deep); }
+    .error-text { color: var(--error); font-size: 0.85rem; font-weight: 600; margin-top: 5px; display: none; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="brand-link">Doss Does English</a>
+    <div class="nav-right">
+        <a href="tests-class08.html" class="class-link">Class 08</a>
+    </div>
+  </nav>
+
+  <div class="container" id="quiz-container">
+    <div class="test-header">
+      <div class="unit-badge">UNIT 6 - PROSE</div>
+      <h1>Test 01: Friendship</h1>
+      <p>Fill in details to start the test</p>
+      <div class="lesson-image-container">
+        <img src="images/c8-u6-friendship.jpg" alt="Lesson Illustration" class="lesson-image">
+      </div>
+    </div>
+
+    <form id="quizForm">
+      
+      <div class="card-box">
+        <div class="section-title"><i class="material-icons" style="vertical-align: middle; margin-right:5px;">person</i> Student Details</div>
+        
+        <div class="input-group">
+          <label class="input-label">Student Name (Initial at last, no dots)</label>
+          <input type="text" class="input-box" id="studentName" required placeholder="Lourds Ryan U">
+          <div class="error-text" id="nameError">Full stops are not allowed. Please put initial at the end.</div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div class="input-group">
+            <label class="input-label">Class</label>
+            <input type="text" class="input-box" value="8" readonly style="background: #f0f0f0;">
+          </div>
+          <div class="input-group">
+            <label class="input-label">Section</label>
+            <select class="input-box" id="sectionSelect" onchange="toggleCustomInput('sectionSelect', 'sectionCustom')">
+              <option value="" disabled selected>Select</option>
+              <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+              <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+              <option value="Other">Other</option>
+            </select>
+            <input type="text" class="input-box custom-input" id="sectionCustom" placeholder="Enter your Section">
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">School Name</label>
+          <select class="input-box" id="schoolSelect" onchange="toggleCustomInput('schoolSelect', 'schoolCustom')">
+            <option value="GHSS Kanjanur" selected>GHSS Kanjanur</option>
+            <option value="Other">Other</option>
+          </select>
+          <input type="text" class="input-box custom-input" id="schoolCustom" placeholder="Enter your School Name">
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">District</label>
+          <input list="district-list" class="input-box" id="districtInput" placeholder="Select District" value="Viluppuram" required>
+          <datalist id="district-list">
+            <option value="Ariyalur"><option value="Chengalpattu"><option value="Chennai">
+            <option value="Coimbatore"><option value="Cuddalore"><option value="Dharmapuri">
+            <option value="Dindigul"><option value="Erode"><option value="Kallakurichi">
+            <option value="Kanchipuram"><option value="Kanyakumari"><option value="Karur">
+            <option value="Krishnagiri"><option value="Madurai"><option value="Mayiladuthurai">
+            <option value="Nagapattinam"><option value="Namakkal"><option value="Nilgiris">
+            <option value="Perambalur"><option value="Pudukkottai"><option value="Ramanathapuram">
+            <option value="Ranipet"><option value="Salem"><option value="Sivaganga">
+            <option value="Tenkasi"><option value="Thanjavur"><option value="Theni">
+            <option value="Thoothukudi"><option value="Tiruchirappalli"><option value="Tirunelveli">
+            <option value="Tirupathur"><option value="Tiruppur"><option value="Tiruvallur">
+            <option value="Tiruvannamalai"><option value="Tiruvarur"><option value="Vellore">
+            <option value="Viluppuram"><option value="Virudhunagar">
+          </datalist>
+        </div>
+      </div>
+
+      <div class="card-box" id="section-1">
+        <div class="section-title">I. Fill in the blanks</div>
+        
+        <div class="q-item">
+          <div class="q-text">__________ constructions was once a leading company.</div>
+          <input type="text" class="input-box" name="q1" placeholder="Answer..." required autocomplete="off">
+        </div>
+
+        <div class="q-item">
+          <div class="q-text">He took a __________ to run his company.</div>
+          <input type="text" class="input-box" name="q2" placeholder="Answer..." required autocomplete="off">
+        </div>
+
+        <div class="q-item">
+          <div class="q-text">Vetri’s friend is __________.</div>
+          <input type="text" class="input-box" name="q3" placeholder="Answer..." required autocomplete="off">
+        </div>
+      </div>
+
+      <div class="card-box" id="section-2">
+        <div class="section-title">II. Say True or False</div>
+
+        <div class="q-item">
+          <div class="q-text">Vetri lived in Keelakudi.</div>
+          <div class="options-grid"><label><input type="radio" name="q4" value="True" required><span class="radio-label">True</span></label><label><input type="radio" name="q4" value="False"><span class="radio-label">False</span></label></div>
+        </div>
+
+        <div class="q-item">
+          <div class="q-text">There was a middle school in the middle of the village Keelakudi.</div>
+          <div class="options-grid"><label><input type="radio" name="q5" value="True" required><span class="radio-label">True</span></label><label><input type="radio" name="q5" value="False"><span class="radio-label">False</span></label></div>
+        </div>
+
+        <div class="q-item">
+          <div class="q-text">Vetri and Asif were not so good in studies.</div>
+          <div class="options-grid"><label><input type="radio" name="q6" value="True" required><span class="radio-label">True</span></label><label><input type="radio" name="q6" value="False"><span class="radio-label">False</span></label></div>
+        </div>
+
+        <div class="q-item">
+          <div class="q-text">Vetri never visited Chennai.</div>
+          <div class="options-grid"><label><input type="radio" name="q7" value="True" required><span class="radio-label">True</span></label><label><input type="radio" name="q7" value="False"><span class="radio-label">False</span></label></div>
+        </div>
+      </div>
+
+      <div class="card-box" id="section-3">
+        <div class="section-title">III. Choose the Correct Answer</div>
+
+        <div class="q-item">
+          <div class="q-text">Vetri went to Asif’s _________.</div>
+          <div class="options-grid"><label><input type="radio" name="q8" value="home" required><span class="radio-label">home</span></label><label><input type="radio" name="q8" value="office"><span class="radio-label">office</span></label><label><input type="radio" name="q8" value="room"><span class="radio-label">room</span></label></div>
+        </div>
+
+        <div class="q-item">
+          <div class="q-text">Vetri came to Chennai to visit his _______.</div>
+          <div class="options-grid"><label><input type="radio" name="q9" value="father" required><span class="radio-label">father</span></label><label><input type="radio" name="q9" value="friend"><span class="radio-label">friend</span></label><label><input type="radio" name="q9" value="brother"><span class="radio-label">brother</span></label></div>
+        </div>
+
+        <div class="q-item">
+          <div class="q-text">Asif saw his friend on the ________.</div>
+          <div class="options-grid"><label><input type="radio" name="q10" value="CCTV" required><span class="radio-label">CCTV</span></label><label><input type="radio" name="q10" value="window"><span class="radio-label">window</span></label><label><input type="radio" name="q10" value="glass"><span class="radio-label">glass</span></label></div>
+        </div>
+      </div>
+
+      <div class="loading" id="submitLoading">Submitting results... please wait.</div>
+      <button type="submit" class="submit-btn" id="submitBtn">Submit Test</button>
+    </form>
+  </div>
+
+  <div class="container" id="result-view">
+    <div class="test-header">
+      <div class="unit-badge">RESULT</div>
+      <h1>Test Performance</h1>
+      <p id="student-display-name"></p>
+    </div>
+    <div class="score-card"><div class="score-big" id="final-score">00/00</div><div class="score-label">TOTAL SCORE</div></div>
+    <div class="card-box"><div class="section-title">Detailed Review</div><div id="review-container"></div></div>
+    <a href="tests-class08.html" class="submit-btn" style="text-align:center; text-decoration:none;">Back to Dashboard</a>
+  </div>
+
+  <script>
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxgAoe6UGej1MnJhj8nl5gMJr5BCQ4QXiw1lk_gyOn9_ZFhXji1RdlJ2GCis83V3DMvfQ/exec';
+    const SHEET_NAME = 'C8-U6-T1'; 
+    
+    const answerKey = {
+      q1: "vetri", q2: "loan", q3: "asif",
+      q4: "True", q5: "False", q6: "False", q7: "True",
+      q8: "office", q9: "friend", q10: "CCTV"
+    };
+    
+    const questionsText = {
+      q1: "__________ constructions was once a leading company.",
+      q2: "He took a ____________ to run his company.",
+      q3: "Vetri’s friend is ___________.",
+      q4: "Vetri lived in Keelakudi.",
+      q5: "There was a middle school in the middle of the village Keelakudi.",
+      q6: "Vetri and Asif were not so good in studies.",
+      q7: "Vetri never visited Chennai.",
+      q8: "Vetri went to Asif’s _________.",
+      q9: "Vetri came to Chennai to visit his _______.",
+      q10: "Asif saw his friend on the ________."
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+      shuffleContainer('section-1');
+      shuffleContainer('section-2');
+      shuffleContainer('section-3');
+      const allQuestionItems = document.querySelectorAll('.q-item');
+      allQuestionItems.forEach(item => {
+        const grid = item.querySelector('.options-grid');
+        if(grid) {
+          const options = Array.from(grid.children);
+          shuffleArray(options);
+          options.forEach(opt => grid.appendChild(opt));
+        }
+      });
+    });
+
+    function shuffleContainer(containerId) {
+      const container = document.getElementById(containerId);
+      if(!container) return;
+      const questions = Array.from(container.querySelectorAll('.q-item'));
+      shuffleArray(questions);
+      questions.forEach(q => container.appendChild(q));
+    }
+
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    document.getElementById('quizForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (document.getElementById('studentName').value.includes('.')) { alert("Please remove the full stop (.) from your name."); return; }
+      
+      const formData = new FormData(this);
+      let school = document.getElementById('schoolSelect').value;
+      if(school === 'Other') school = document.getElementById('schoolCustom').value;
+      let section = document.getElementById('sectionSelect').value;
+      if(section === 'Other') section = document.getElementById('sectionCustom').value;
+      let district = document.getElementById('districtInput').value;
+
+      let score = 0;
+      let total = 10;
+      let reviewHTML = "";
+      let sheetAnswers = [];
+      let cellColors = [];
+
+      for (let i = 1; i <= total; i++) {
+        let key = 'q' + i;
+        let userAns = formData.get(key) || "-";
+        let correctAns = answerKey[key];
+        let isCorrect = false;
+
+        if (i <= 3) { 
+           if (userAns.trim().toLowerCase() === correctAns.toLowerCase()) isCorrect = true;
+        } else {
+           if (userAns === correctAns) isCorrect = true;
+        }
+
+        if (isCorrect) { score++; cellColors.push("#FFFFFF"); } 
+        else { cellColors.push("#FEE2E2"); }
+        sheetAnswers.push(userAns);
+
+        let status = isCorrect ? "correct" : "wrong";
+        reviewHTML += `<div class="review-item ${status}"><div class="status-badge ${status}">${status.toUpperCase()}</div><div class="q-text">${questionsText[key]}</div><span class="user-ans">You Chose: ${userAns}</span>${!isCorrect ? `<span class="corr-ans">Correct Answer: ${correctAns}</span>` : ''}</div>`;
+      }
+
+      const payload = { sheetName: SHEET_NAME, name: document.getElementById('studentName').value, classVal: "8", section: section, school: school, district: district, scoreVal: score, totalVal: total, sheetAnswers: sheetAnswers, cellColors: cellColors };
+
+      document.getElementById('submitBtn').style.display = 'none';
+      document.getElementById('submitLoading').style.display = 'block';
+
+      fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) })
+      .then(res => res.json())
+      .then(data => { showResults(score, total, reviewHTML, payload.name); })
+      .catch(err => { console.error(err); showResults(score, total, reviewHTML, payload.name); });
+    });
+
+    function showResults(score, total, reviewHTML, name) {
+      document.getElementById('quiz-container').style.display = 'none';
+      document.getElementById('result-view').style.display = 'block';
+      document.getElementById('student-display-name').textContent = "Student: " + name;
+      document.getElementById('final-score').textContent = score + "/" + total;
+      document.getElementById('review-container').innerHTML = reviewHTML;
+      window.scrollTo(0,0);
+    }
+    
+    function toggleCustomInput(selId, inpId) {
+      const sel = document.getElementById(selId);
+      const inp = document.getElementById(inpId);
+      if (sel.value === 'Other') { inp.style.display = 'block'; inp.required = true; } 
+      else { inp.style.display = 'none'; inp.required = false; }
+    }
+  </script>
+</body>
+</html>

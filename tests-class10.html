@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Series - Doss Does English</title>
+  
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-body: #FAFAFA;
+      --text-dark: #111111;
+      --text-grey: #666666;
+      
+      --card-bg: #FFFFFF;
+      --card-border: #E5E5E5;
+      
+      /* --- VIBRANT EMERALD PALETTE (Green for Tests) --- */
+      --green-deep: #059669;    /* Darker green for text/icons */
+      --green-glow: #34D399;    /* Brighter green for the glow */
+      --green-pale: #D1FAE5;
+      
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-dark);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    nav {
+      padding: 25px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .brand { font-weight: 800; font-size: 1.3rem; letter-spacing: -0.5px; color: var(--text-dark); }
+    .nav-links a { text-decoration: none; color: var(--text-grey); margin-left: 30px; font-weight: 600; font-size: 0.95rem; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--green-deep); }
+    .menu-icon { display: none; cursor: pointer; }
+    @media (max-width: 768px) { .nav-links { display: none; } .menu-icon { display: block; } }
+
+    /* Header */
+    .page-header {
+      text-align: center;
+      padding: 60px 20px 40px 20px;
+    }
+    .page-badge {
+      display: inline-block;
+      background-color: var(--green-pale);
+      color: var(--green-deep);
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .page-header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin: 0;
+      letter-spacing: -1px;
+      color: var(--text-dark);
+    }
+    .page-header p {
+      color: var(--text-grey);
+      margin-top: 10px;
+    }
+
+    /* Grid */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+      max-width: 1200px;
+      margin: 0 auto 80px auto;
+      padding: 0 20px;
+    }
+
+    /* TEST CARD DESIGN */
+    .test-card {
+      background-color: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 30px;
+      position: relative;
+      cursor: pointer;
+      border: 1px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 200px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      z-index: 1;
+    }
+
+    /* High Intensity Green Glow */
+    .test-card::before {
+      content: '';
+      position: absolute;
+      bottom: -40px;
+      left: -20px;
+      right: -20px;
+      height: 250px;
+      background: radial-gradient(circle at center bottom, rgba(52, 211, 153, 0.5) 0%, rgba(52, 211, 153, 0.1) 50%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .test-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(5, 150, 105, 0.3);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    }
+    .test-card:hover::before {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    /* Number Styling */
+    .test-number {
+      font-size: 4rem;
+      font-weight: 800;
+      color: #F3F4F6;
+      position: absolute;
+      top: -10px;
+      right: 10px;
+      z-index: -2;
+      line-height: 1;
+      transition: color 0.3s;
+    }
+    .test-card:hover .test-number { color: rgba(52, 211, 153, 0.2); }
+
+    /* Content Styling */
+    .main-title {
+      z-index: 2;
+      margin-top: auto;
+      margin-bottom: 5px;
+    }
+    .main-title h3 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin: 0;
+      color: var(--text-dark);
+      letter-spacing: -1px;
+    }
+    .main-title p {
+      font-size: 0.9rem;
+      color: var(--text-grey);
+      margin: 0;
+      font-weight: 500;
+    }
+
+    .action-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      z-index: 2;
+      border-top: 1px solid #f0f0f0;
+      padding-top: 15px;
+      transition: border-color 0.3s;
+    }
+    .test-card:hover .action-row { border-color: rgba(0,0,0,0.05); }
+
+    .marks { font-size: 0.85rem; font-weight: 600; color: var(--text-grey); }
+    
+    .start-btn {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: #F3F4F6;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s ease;
+      color: var(--text-dark);
+    }
+    
+    .test-card:hover .start-btn {
+      background: var(--green-deep);
+      color: white;
+      transform: translateX(5px) scale(1.1);
+      box-shadow: 0 5px 15px rgba(5, 150, 105, 0.3);
+    }
+
+    footer { text-align: center; padding: 40px; color: var(--text-grey); font-size: 0.9rem; margin-top: 40px;}
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="brand">Doss Does English</div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="materials.html">Materials</a>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-badge">Class 10 English</div>
+    <h1>One Mark Test Series</h1>
+    <p>Based on Previous Year Board Question Papers</p>
+  </div>
+
+  <div class="grid-container">
+
+    <div class="test-card" onclick="location.href='https://lourdselt.github.io/10th-onemark-tests/test-01.html'">
+      <div class="test-number">01</div>
+      <div class="main-title">
+        <h3>SEP 2020</h3>
+        <p>SSLC Supplementary</p>
+      </div>
+      <div class="action-row">
+        <span class="marks">14 Marks</span>
+        <div class="start-btn"><i class="material-icons" style="font-size:18px;">arrow_forward</i></div>
+      </div>
+    </div>
+
+    <div class="test-card" onclick="location.href='https://lourdselt.github.io/10th-onemark-tests/test-02.html'">
+      <div class="test-number">02</div>
+      <div class="main-title">
+        <h3>SEP 2021</h3>
+        <p>SSLC Supplementary</p>
+      </div>
+      <div class="action-row">
+        <span class="marks">14 Marks</span>
+        <div class="start-btn"><i class="material-icons" style="font-size:18px;">arrow_forward</i></div>
+      </div>
+    </div>
+
+    <div class="test-card" onclick="location.href='https://lourdselt.github.io/10th-onemark-tests/test-03.html'">
+      <div class="test-number">03</div>
+      <div class="main-title">
+        <h3>MAY 2022</h3>
+        <p>SSLC Public Exam</p>
+      </div>
+      <div class="action-row">
+        <span class="marks">14 Marks</span>
+        <div class="start-btn"><i class="material-icons" style="font-size:18px;">arrow_forward</i></div>
+      </div>
+    </div>
+
+    <div class="test-card" onclick="location.href='https://lourdselt.github.io/10th-onemark-tests/test-04.html'">
+      <div class="test-number">04</div>
+      <div class="main-title">
+        <h3>AUG 2022</h3>
+        <p>SSLC Supplementary</p>
+      </div>
+      <div class="action-row">
+        <span class="marks">14 Marks</span>
+        <div class="start-btn"><i class="material-icons" style="font-size:18px;">arrow_forward</i></div>
+      </div>
+    </div>
+
+    <div class="test-card" onclick="location.href='https://lourdselt.github.io/10th-onemark-tests/test-05.html'">
+      <div class="test-number">05</div>
+      <div class="main-title">
+        <h3>APR 2023</h3>
+        <p>SSLC Public Exam</p>
+      </div>
+      <div class="action-row">
+        <span class="marks">14 Marks</span>
+        <div class="start-btn"><i class="material-icons" style="font-size:18px;">arrow_forward</i></div>
+      </div>
+    </div>
+
+    <div class="test-card" onclick="location.href='https://lourdselt.github.io/10th-onemark-tests/test-06.html'">
+      <div class="test-number">06</div>
+      <div class="main-title">
+        <h3>JUN 2023</h3>
+        <p>SSLC Supplementary</p>
+      </div>
+      <div class="action-row">
+        <span class="marks">14 Marks</span>
+        <div class="start-btn"><i class="material-icons" style="font-size:18px;">arrow_forward</i></div>
+      </div>
+    </div>
+
+    <div class="test-card" onclick="location.href='https://lourdselt.github.io/10th-onemark-tests/test-07.html'">
+      <div class="test-number">07</div>
+      <div class="main-title">
+        <h3>MAR 2024</h3>
+        <p>SSLC Public Exam</p>
+      </div>
+      <div class="action-row">
+        <span class="marks">14 Marks</span>
+        <div class="start-btn"><i class="material-icons" style="font-size:18px;">arrow_forward</i></div>
+      </div>
+    </div>
+
+    <div class="test-card" onclick="location.href='https://lourdselt.github.io/10th-onemark-tests/test-08.html'">
+      <div class="test-number">08</div>
+      <div class="main-title">
+        <h3>JUL 2024</h3>
+        <p>SSLC Supplementary</p>
+      </div>
+      <div class="action-row">
+        <span class="marks">14 Marks</span>
+        <div class="start-btn"><i class="material-icons" style="font-size:18px;">arrow_forward</i></div>
+      </div>
+    </div>
+
+    <div class="test-card" onclick="location.href='https://lourdselt.github.io/10th-onemark-tests/test-09.html'">
+      <div class="test-number">09</div>
+      <div class="main-title">
+        <h3>APR 2025</h3>
+        <p>SSLC Public Exam</p>
+      </div>
+      <div class="action-row">
+        <span class="marks">14 Marks</span>
+        <div class="start-btn"><i class="material-icons" style="font-size:18px;">arrow_forward</i></div>
+      </div>
+    </div>
+
+    <div class="test-card" onclick="location.href='https://lourdselt.github.io/10th-onemark-tests/test-10.html'">
+      <div class="test-number">10</div>
+      <div class="main-title">
+        <h3>JUL 2025</h3>
+        <p>SSLC Supplementary</p>
+      </div>
+      <div class="action-row">
+        <span class="marks">14 Marks</span>
+        <div class="start-btn"><i class="material-icons" style="font-size:18px;">arrow_forward</i></div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    © 2026 Doss Does English. Keep Practicing.
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class 8 Tests - Doss Does English</title>
+  
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-body: #FAFAFA;
+      --text-dark: #111111;
+      --text-grey: #666666;
+      
+      --card-bg: #FFFFFF;
+      --card-border: #E5E5E5;
+      
+      /* --- VIBRANT ORANGE PALETTE (Class 8) --- */
+      --theme-deep: #EA580C;    /* Deep Burnt Orange */
+      --theme-glow: #F97316;    /* Bright Orange for Aurora */
+      --theme-pale: #FFF7ED;    /* Very pale orange for badge */
+      
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-dark);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    nav {
+      padding: 25px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .brand-link { text-decoration: none; font-weight: 800; font-size: 1.3rem; letter-spacing: -0.5px; color: var(--text-dark); transition: color 0.3s; }
+    .brand-link:hover { color: var(--theme-deep); }
+    .nav-links a { text-decoration: none; color: var(--text-grey); margin-left: 30px; font-weight: 600; font-size: 0.95rem; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--theme-deep); }
+    .menu-icon { display: none; cursor: pointer; }
+    @media (max-width: 768px) { .nav-links { display: none; } .menu-icon { display: block; } }
+
+    /* Page Header */
+    .page-header {
+      text-align: center;
+      padding: 60px 20px 40px 20px;
+      background: linear-gradient(to bottom, #fff, #fafafa);
+      border-bottom: 1px solid #eee;
+      margin-bottom: 40px;
+    }
+    .page-badge {
+      display: inline-block;
+      background-color: var(--theme-pale);
+      color: var(--theme-deep);
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .page-header h1 {
+      font-size: 3rem;
+      font-weight: 900;
+      margin: 0;
+      letter-spacing: -1.5px;
+      color: var(--text-dark);
+    }
+    .page-header p {
+      color: var(--text-grey);
+      margin-top: 10px;
+      font-size: 1.1rem;
+    }
+
+    /* --- UNIT SECTION STYLING --- */
+    .unit-wrapper {
+      max-width: 1200px;
+      margin: 0 auto 80px auto;
+      padding: 0 20px;
+    }
+    
+    .unit-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid var(--card-border);
+    }
+
+    .unit-badge {
+      background: var(--theme-deep);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 1.2rem;
+      margin-right: 15px;
+    }
+
+    .unit-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    /* Grid */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    /* TEST CARD DESIGN */
+    .test-card {
+      background-color: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 30px;
+      position: relative;
+      cursor: pointer;
+      border: 1px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 200px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      z-index: 1;
+    }
+
+    .test-card::before {
+      content: '';
+      position: absolute;
+      bottom: -40px;
+      left: -20px;
+      right: -20px;
+      height: 250px;
+      background: radial-gradient(circle at center bottom, rgba(249, 115, 22, 0.5) 0%, rgba(249, 115, 22, 0.1) 50%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .test-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(234, 88, 12, 0.3);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    }
+    .test-card:hover::before { opacity: 1; transform: scale(1.1); }
+
+    .test-number {
+      font-size: 4rem;
+      font-weight: 800;
+      color: #F3F4F6;
+      position: absolute;
+      top: -10px;
+      right: 10px;
+      z-index: -2;
+      line-height: 1;
+      transition: color 0.3s;
+    }
+    .test-card:hover .test-number { color: rgba(249, 115, 22, 0.2); }
+
+    .main-title {
+      z-index: 2;
+      margin-top: auto;
+      margin-bottom: 5px;
+    }
+    .main-title h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin: 0;
+      color: var(--text-dark);
+      letter-spacing: -0.5px;
+    }
+    .main-title p {
+      font-size: 0.9rem;
+      color: var(--text-grey);
+      margin: 0;
+      font-weight: 500;
+    }
+
+    .action-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      z-index: 2;
+      border-top: 1px solid #f0f0f0;
+      padding-top: 15px;
+      transition: border-color 0.3s;
+    }
+    .test-card:hover .action-row { border-color: rgba(0,0,0,0.05); }
+
+    .marks { font-size: 0.85rem; font-weight: 600; color: var(--text-grey); }
+    
+    .start-btn {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: #F3F4F6;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s ease;
+      color: var(--text-dark);
+    }
+    
+    .test-card:hover .start-btn {
+      background: var(--theme-deep);
+      color: white;
+      transform: translateX(5px) scale(1.1);
+      box-shadow: 0 5px 15px rgba(234, 88, 12, 0.3);
+    }
+
+    footer { text-align: center; padding: 40px; color: var(--text-grey); font-size: 0.9rem; margin-top: 40px;}
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="brand-link">Doss Does English</a>
+    <div class="nav-links">
+      <a href="tests.html">Dashboard</a>
+      <a href="materials.html">Materials</a>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-badge">Academic Year 2025-2026</div>
+    <h1>CLASS 8 TEST SERIES</h1>
+    <p>Scroll down to select your Unit</p>
+  </div>
+
+  <div class="unit-wrapper">
+    <div class="unit-header">
+      <span class="unit-badge">UNIT 6</span>
+      <span class="unit-name">Friendship</span>
+    </div>
+    
+    <div class="grid-container">
+      
+      <div class="test-card" onclick="location.href='test-class08-unit6-01.html'"> 
+        <div class="test-number">01</div>
+        <div class="main-title">
+          <h3>Test 1</h3>
+          <p>Friendship: Lesson Recall</p>
+        </div>
+        <div class="action-row">
+          <span class="marks">10 Marks</span>
+          <div class="start-btn"><i class="material-icons" style="font-size:18px;">arrow_forward</i></div>
+        </div>
+      </div>
+
+      <div class="test-card" onclick="location.href='test-class08-unit6-02.html'"> 
+        <div class="test-number">02</div>
+        <div class="main-title">
+          <h3>Test 2</h3>
+          <p>Synonyms & Antonyms</p>
+        </div>
+        <div class="action-row">
+          <span class="marks">10 Marks</span>
+          <div class="start-btn"><i class="material-icons" style="font-size:18px;">arrow_forward</i></div>
+        </div>
+      </div>
+
+      <div class="test-card" onclick="location.href='test-class08-unit6-03.html'"> 
+        <div class="test-number">03</div>
+        <div class="main-title">
+          <h3>Test 3</h3>
+          <p>Confusable Words, Anagrams</p>
+        </div>
+        <div class="action-row">
+          <span class="marks">20 Marks</span>
+          <div class="start-btn"><i class="material-icons" style="font-size:18px;">arrow_forward</i></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="unit-wrapper">
+    <div class="unit-header">
+      <span class="unit-badge">UNIT 7</span>
+      <span class="unit-name">Cyber Safety</span>
+    </div>
+    
+    <div class="grid-container">
+      <div class="test-card" onclick="location.href='#'"> 
+        <div class="test-number">01</div>
+        <div class="main-title">
+          <h3>Test 1</h3>
+          <p>Vocabulary</p>
+        </div>
+        <div class="action-row">
+          <span class="marks">10 Marks</span>
+          <div class="start-btn"><i class="material-icons" style="font-size:18px;">arrow_forward</i></div>
+        </div>
+      </div>
+
+      <div class="test-card" onclick="location.href='#'"> 
+        <div class="test-number">02</div>
+        <div class="main-title">
+          <h3>Test 2</h3>
+          <p>Grammar</p>
+        </div>
+        <div class="action-row">
+          <span class="marks">10 Marks</span>
+          <div class="start-btn"><i class="material-icons" style="font-size:18px;">arrow_forward</i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="unit-wrapper">
+    <div class="unit-header">
+      <span class="unit-badge">UNIT 8</span>
+      <span class="unit-name">Jack and the Beanstalk</span>
+    </div>
+    
+    <div class="grid-container">
+      <div class="test-card" onclick="location.href='#'"> 
+        <div class="test-number">01</div>
+        <div class="main-title">
+          <h3>Test 1</h3>
+          <p>Play - Vocabulary</p>
+        </div>
+        <div class="action-row">
+          <span class="marks">10 Marks</span>
+          <div class="start-btn"><i class="material-icons" style="font-size:18px;">arrow_forward</i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © 2026 Doss Does English. Keep Practicing.
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select Class - Doss Does English</title>
+  
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-body: #FAFAFA;
+      --text-dark: #111111;
+      --text-grey: #666666;
+      
+      --card-bg: #FFFFFF;
+      --card-border: #E5E5E5;
+      
+      /* --- RICH CYAN PALETTE --- */
+      --cyan-deep: #0891b2;
+      --cyan-glow: #06b6d4;
+      --cyan-pale: #ecfeff;
+      
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-dark);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    nav {
+      padding: 25px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .brand-link {
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 1.3rem;
+      letter-spacing: -0.5px;
+      color: var(--text-dark);
+      transition: color 0.3s;
+    }
+    .brand-link:hover { color: var(--cyan-deep); }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-grey);
+      margin-left: 30px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--cyan-deep); }
+    
+    .menu-icon { display: none; cursor: pointer; }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .menu-icon { display: block; }
+    }
+
+    /* Header */
+    .page-header {
+      text-align: center;
+      padding: 80px 20px 40px 20px;
+    }
+    .page-badge {
+      display: inline-block;
+      background-color: var(--cyan-pale);
+      color: var(--cyan-deep);
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-bottom: 25px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .page-header h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin: 0 0 15px 0;
+      letter-spacing: -1.5px;
+      color: var(--text-dark);
+    }
+    
+    .page-header p {
+      color: var(--text-grey);
+      font-size: 1.1rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* Grid */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1100px;
+      margin: 40px auto 80px auto;
+      padding: 0 20px;
+    }
+
+    /* Class Card */
+    .class-card {
+      background-color: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 40px 30px;
+      position: relative;
+      cursor: pointer;
+      border: 1px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      height: 320px;
+      justify-content: center;
+      overflow: hidden; 
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      z-index: 1;
+    }
+
+    /* Cyan Glow */
+    .class-card::before {
+      content: '';
+      position: absolute;
+      bottom: -50px;
+      left: -20px;
+      right: -20px;
+      height: 250px; 
+      background: radial-gradient(circle at center bottom, rgba(34, 211, 238, 0.5) 0%, rgba(34, 211, 238, 0.1) 50%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .class-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(8, 145, 178, 0.3);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    }
+
+    .class-card:hover::before {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    .class-number {
+      font-size: 5rem;
+      font-weight: 800;
+      color: #F3F4F6;
+      line-height: 1;
+      margin-bottom: 20px;
+      transition: color 0.3s;
+      z-index: 1;
+    }
+    
+    .class-card:hover .class-number {
+      color: var(--cyan-deep);
+    }
+
+    .class-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: var(--text-dark);
+      z-index: 2;
+    }
+
+    .class-desc {
+      color: var(--text-grey);
+      font-size: 0.95rem;
+      z-index: 2;
+    }
+
+    .btn-circle {
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      background: #F3F4F6;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 30px;
+      transition: all 0.3s ease;
+      color: var(--text-dark);
+      z-index: 2;
+    }
+
+    .class-card:hover .btn-circle {
+      background: var(--cyan-deep);
+      color: white;
+      transform: scale(1.1);
+      box-shadow: 0 5px 15px rgba(8, 145, 178, 0.3);
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-grey);
+      font-size: 0.9rem;
+      border-top: 1px solid #E5E5E5;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="brand-link">Doss Does English</a>
+    
+    <div class="nav-links">
+      <a href="materials.html">Materials</a>
+      <a href="videos.html">Videos</a>
+    </div>
+    <div class="menu-icon">
+      <i class="material-icons">menu</i>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-badge">Assessment Dashboard</div>
+    <h1>Select Your Class</h1>
+    <p>Choose your grade to access specific test series and practice papers.</p>
+  </div>
+
+  <div class="grid-container">
+
+    <div class="class-card" onclick="location.href='tests-class08.html'">
+      <div class="class-number">08</div>
+      <div class="class-title">Class 8</div>
+      <div class="class-desc">Reading skills and basic grammar tests.</div>
+      <div class="btn-circle"><i class="material-icons">arrow_forward</i></div>
+    </div>
+
+    <div class="class-card" onclick="location.href='tests-class09.html'">
+      <div class="class-number">09</div>
+      <div class="class-title">Class 9</div>
+      <div class="class-desc">Vocabulary and intermediate grammar.</div>
+      <div class="btn-circle"><i class="material-icons">arrow_forward</i></div>
+    </div>
+
+    <div class="class-card" onclick="location.href='tests-class10.html'">
+      <div class="class-number">10</div>
+      <div class="class-title">Class 10</div>
+      <div class="class-desc">SSLC Board Exam Papers and One Marks.</div>
+      <div class="btn-circle"><i class="material-icons">arrow_forward</i></div>
+    </div>
+
+  </div>
+
+  <footer>
+    © 2026 Doss Does English. Designed for Excellence.
+  </footer>
+
+</body>
+</html>
